@@ -1,0 +1,98 @@
+/*
+ * This a simple test file of less project.
+ * kuing by 2017-01-21
+ * url: http://www.5ikuing.com/less.html
+ * 所有属性值后面注释中添加的常量值效果上由亮变淡
+ */
+//@import "../css/bootstrap.min.css";
+@redColor: #FF7E67;   //粉红：#FF7E67
+@blueColor: #76D3FF;  //#76D3FF
+@headColor: #00CCFF;
+//@bggrayColor: #BDC3C7; //灰色背景  #EFF0F4
+@bggrayColor: #EFF0F4;
+@linkNormalColor:#29C6CD;
+
+//位置常量
+@normalLeft: 10px;
+@normalTop:20px;
+
+//形状
+@borderRadius:5px;
+#test1{
+    color: @headColor;
+    .row p{
+        color: @redColor;
+        
+    }
+}
+
+h4{
+    color:@blueColor;
+}
+
+div.row div{
+    margin-top:@normalTop;
+    padding:20px;
+    background:@bggrayColor;
+    border-radius: @borderRadius;
+    p{
+        color:@redColor;
+    }
+}
+
+//混合：将定义好的属性引入到另一个class中，从而实现一个类继承另一个类中定义好的属性，可以带参数调用，类似于重载.
+.normalClass(@radius:5px,@bgcolor:#00FFCC){ //参数默认5px
+    border-radius:@radius;
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    background-color: @bgcolor;
+}
+
+#test2{
+    //.normalClass(@bgcolor:#1FAB89); //默认调用
+    //width:100px;
+    //height:50px;
+    //text-align:center;
+    
+    a{ 
+        text-align: center;
+        width:80px;
+        height:30px;
+        #namespace > .button(30px);  //这里的参数可以传递 @lineHeight:30px 或者 30px;
+        //覆盖默认的块级元素 所以加在基本样式的后面
+        display: inline-block;
+     }
+}
+
+//运算和函数： less提供了基本的算数运算操作,常用的是做属性值和颜色运算. less中的函数一一映射了JS代码,可以使用这些函数操作间接操作属性值
+
+a{
+    color: @linkNormalColor;
+    //text-decoration: none;
+    &:hover{color:@redColor;
+    text-decoration: none;}
+}
+
+//命名空间和打包封装
+#namespace{
+    //将button样式打包在 namespace的命名空间内
+    .button(@lineHeight){
+        display: block;
+        line-height:@lineHeight;
+        border: 1px solid orangered;
+        border-radius: @borderRadius;
+        background-color:yellowgreen;
+        &:hover{background-color:white;
+            text-decoration: none;
+        }&:link{text-decoration: none;}
+    }
+    //.tab{...}
+    //anything..
+}
+//使用namespace中button样式属性集
+#button1 a{
+    color:black;
+    #namespace > .button(@lineHeight:auto);  //只使用button的样式
+}
+
+//作用域

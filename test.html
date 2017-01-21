@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>LESS测试</title>
+		<!-- 新 Bootstrap 核心 CSS 文件 -->
+		<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+		<!-- 这边一定要把less文件放到bootstrap css文件的后面 ,否则 bootstrap默认的样式覆盖了自己设定的样式-->
+		<link rel="stylesheet/less" type="text/css" href="less/style.less"/>
+		<!-- <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css"> -->
+	</head>
+	<body>
+		<div class="page-header">
+			<h1>LESS学习<a href="http://www.5ikuing.com/">@kuing</a>自学笔记 2017-01-21</h1>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-xs-10 col-lg-offset-3 col-md-offset-3">
+					<p>//简单上手：less中的变量实质上是常量，因此只能被赋值一次.</p>
+					<p>@color: red;</p>
+					<p>#test1{</p>
+					<p>color:@color;</p>
+					<p>}</p>
+					<h4>生成的css：</h4>
+					<p>#test1{</p>
+					<p>color:#red;</p>
+					<p>}</p>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-xs-10 col-lg-offset-3 col-md-offset-3">
+					<div id="test2">
+						<p>按钮的样式选择的是命名空间 #namespace .button类的样式</p>
+						<p><a href="#">button</a>&nbsp;&nbsp;&nbsp;//这里的参数可以传递 @lineHeight:30px 或者 30px;</p>
+						<br/>
+						<p>持续更新..</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+		<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+		<!-- <script src="js/bootstrap.js" type="text/javascript"></script>-->
+		<script type="text/javascript" src="js/less.js"></script>
+	</body>
+</html>

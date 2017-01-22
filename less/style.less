@@ -18,11 +18,15 @@
 
 //形状
 @borderRadius:5px;
-#test1{
-    color: @headColor;
-    .row p{
-        color: @redColor;
-        
+#test1{   //注意这里前面加上 p#test1和不加效果不一样
+//  color: @headColor;
+//  .row p{
+//      color: @redColor;
+//      
+//  }
+    a{
+        #namespace > .button(auto);
+        .box-shadow(3px,2px,@blur:10px,@color:#FF7E67);   //传参的时候可以使用,分开或者空格 需要带上单位否则不会报错但没有效果
     }
 }
 
@@ -54,13 +58,19 @@ div.row div{
     //height:50px;
     //text-align:center;
     
-    a{ 
-        text-align: center;
-        width:80px;
-        height:30px;
-        #namespace > .button(30px);  //这里的参数可以传递 @lineHeight:30px 或者 30px;
-        //覆盖默认的块级元素 所以加在基本样式的后面
-        display: inline-block;
+//  a{ 
+//      text-align: center;
+//      width:80px;
+//      height:30px;
+//      #namespace > .button(30px);  //这里的参数可以传递 @lineHeight:30px 或者 30px;
+//      //覆盖默认的块级元素 所以加在基本样式的后面
+//      display: inline-block;
+//   }
+     
+     a{
+         width:80px;
+         text-align: center;
+         #namespace > .linkStyle;
      }
 }
 
@@ -86,6 +96,14 @@ a{
             text-decoration: none;
         }&:link{text-decoration: none;}
     }
+    
+    .linkStyle{
+        color:dodgerblue;
+        display: inline-block;
+       &:link{
+            text-decoration: none;
+        }
+    }
     //.tab{...}
     //anything..
 }
@@ -95,4 +113,64 @@ a{
     #namespace > .button(@lineHeight:auto);  //只使用button的样式
 }
 
-//作用域
+//@arguments变量
+.box-shadow(@x: 0,@y: 0,@blur:1px,@color:#000){ //用于阴影控制 1px模糊程度 
+    box-shadow:@arguments;
+    -moz-box-shadow: @arguments;
+    -webkit-box-shadow:@arguments;
+}
+//.box-shadow(2px,5px);
+
+//模式匹配和引导表达式
+#model{
+    .mixin(dark,@color){
+        color:darken(@color,10%);
+    }
+    .mixin(light,@color){
+        color:lighten(@color,10%);
+    }
+    .mixin(@_,@color){
+        display:block;
+    }
+    //引导混合
+    .mixin(@a) when (lightness(@a)>=50%){
+        background-color:black;
+    }
+    .mixin(@a) when (lightness(@a) < 50%){
+        background-color:white;
+    }
+    .mixin(@a){
+        color:@a;
+    }
+}
+//#model > .mixin(light,#888);
+
+//作用域: less的作用域根其他编程语言很相似，首先会从本地查找变量，逐次向父级作用域查找，直到找到为止
+#page{
+    @redColor: white;
+    #header{
+        color:@redColor;   //white
+    }
+}
+
+#footer{
+    color:@redColor;    //red
+}
+
+//注释:  //、/* */
+
+//importing 可以在 main 文件中引入 .less文件，.less后缀可带可不带,导入css文件时必须带上 .css，以免被 less处理
+//@import "lib.less";
+//@import "lib";
+//@import "lib.css";
+
+//字符串插入值 @{name};
+//@base-url: "http://5ikuing.com/";
+//background-image: url("@{base-url}/images/bg.png");
+
+//javascript表达式： JS表达式可以在 .less文件中使用, 可以通过反引号的方式使用
+//@var: `"hello".toUpperCase()+'!'`;
+
+
+
+
